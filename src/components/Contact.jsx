@@ -217,7 +217,7 @@ const Contact = () => {
             </div>
 
             <motion.a
-              href="/resume.pdf"
+              href="docs/resume.pdf"
               download="Malayappa_Gowtham_Resume.pdf"
               whileHover={{ y: -2 }}
               className="w-full flex items-center justify-between p-5 bg-[#2a2a2a] rounded-xl border border-cyan-400/10 group hover:bg-cyan-400/5 transition-all cursor-pointer"

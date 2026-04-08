@@ -79,7 +79,7 @@ export default function Hero() {
 
           <div className="flex flex-wrap gap-3 justify-center md:justify-start">
             <a
-              href="/resume.pdf"
+              href="docs/resume.pdf"
               download="Malayappa_Gowtham_Resume.pdf"
               className={`h-10 md:h-11 px-6 md:px-8 font-bold rounded-xl flex items-center justify-center gap-2 hover:scale-95 transition-all duration-300 shadow-lg text-xs md:text-sm
     ${
