@@ -39,19 +39,19 @@ const experienceData = [
     role: "Full Stack Intern",
     company: "Elevance Skills",
     duration: "1 Month • Remote",
-    certificateUrl: "../../public/Elevance.png",
+    certificateUrl: "/Elevance.png",
   },
   {
     role: "Web Dev Intern",
     company: "Futurik Technologies",
     duration: "1 Month • On-site",
-    certificateUrl: "../../public/Futurix.png",
+    certificateUrl: "/Futurix.png",
   },
   {
     role: "Networks Intern",
     company: "Phoenix Softech",
     duration: "1 Month • On-site",
-    certificateUrl: "../../public/Phoenix.png",
+    certificateUrl: "/Phoenix.png",
   },
 ];
 
