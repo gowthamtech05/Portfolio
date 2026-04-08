@@ -65,7 +65,7 @@ function FloatingTechStrip({ isDark }) {
 
   return (
     <div
-      className="relative w-full mb-2 overflow-hidden"
+      className="relative w-full mb-2 overflow-scroll"
       style={{ height: 160 }}
     >
       {visibleIcons.map((tech, i) => (
@@ -206,7 +206,7 @@ export default function Skills() {
 
   return (
     <motion.section
-      layout 
+      layout
       id="skills"
       className={`py-20 px-6 transition-colors duration-500 ${
         isDark ? "bg-[#0e0e0e] text-white" : "bg-slate-50 text-slate-900"
