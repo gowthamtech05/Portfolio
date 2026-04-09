@@ -33,7 +33,7 @@ const experienceData = [
     company: "SDLC Center",
     duration: "6 Months • On-site",
     isHighlight: true,
-    certificateUrl: "/certificates/sdlc_mern.pdf",
+    certificateUrl: "/Sdlc.JPG",
   },
   {
     role: "Full Stack Intern",
