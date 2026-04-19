@@ -39,10 +39,7 @@ const experienceData = [
     role: "Full Stack Intern",
     company: "Elevance Skills",
     duration: "1 Month • Remote",
-    certificates: [
-      { name: "Training Certificate", url: "/Elevance.png" },
-      { name: "Intern Excellence", url: "/Elevance Intern.png" },
-    ],
+    certificateUrl: ["/Elevance.png", "/Elevance Intern.png"],
   },
   {
     role: "Web Dev Intern",
@@ -87,20 +84,46 @@ export default function Education() {
             <h3 className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-cyan-500 mb-4">
               <HiBriefcase className="text-lg" /> Experience & Training
             </h3>
-            <div className="flex gap-2">
-              {exp.certificates &&
-                exp.certificates.map((cert, index) => (
-                  <a
-                    key={index}
-                    href={cert.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2 rounded-lg bg-cyan-500 text-black hover:bg-cyan-400 transition-colors flex items-center justify-center cursor-pointer"
-                    title={cert.name || "View Certificate"}
-                  >
-                    <HiOutlineExternalLink />
-                  </a>
-                ))}
+            <div className="flex flex-col gap-4">
+              {experienceData.map((exp, i) => (
+                <div
+                  key={i}
+                  className={`p-5 rounded-2xl border flex items-center justify-between transition-all group ${
+                    exp.isHighlight
+                      ? "border-cyan-500 bg-cyan-500/5 ring-1 ring-cyan-500/20 shadow-[0_0_20px_rgba(6,182,212,0.1)]"
+                      : isDark
+                        ? "bg-white/5 border-white/10"
+                        : "bg-white border-black/5 shadow-sm"
+                  }`}
+                >
+                  <div>
+                    <h4
+                      className={`font-bold ${exp.isHighlight ? "text-cyan-400" : "text-base"}`}
+                    >
+                      {exp.role} {exp.isHighlight && "⭐"}
+                    </h4>
+                    <p
+                      className={`text-xs ${isDark ? "text-neutral-500" : "text-slate-500"}`}
+                    >
+                      {exp.company} • {exp.duration}
+                    </p>
+                  </div>
+
+                  {exp.certificateUrls &&
+                    exp.certificateUrls.map((url, idx) => (
+                      <a
+                        key={idx}
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2 rounded-lg bg-cyan-500 text-black hover:bg-cyan-400 transition-colors flex items-center justify-center cursor-pointer"
+                        title={`View Certificate ${idx + 1}`}
+                      >
+                        <HiOutlineExternalLink />
+                      </a>
+                    ))}
+                </div>
+              ))}
             </div>
           </div>
 
