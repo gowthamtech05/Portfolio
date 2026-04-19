@@ -1,11 +1,65 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTheme } from "../context/ThemeContext";
 import {
   HiOutlineExternalLink,
   HiAcademicCap,
   HiBriefcase,
+  HiX,
 } from "react-icons/hi";
 
+// ── Certificate modal ──────────────────────────────────────────────────────────
+function CertModal({ urls, label, onClose }) {
+  if (!urls || urls.length === 0) return null;
+  return (
+    <div
+      onClick={onClose}
+      style={{
+        position: "fixed",
+        inset: 0,
+        background: "rgba(0,0,0,0.7)",
+        zIndex: 9999,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "1rem",
+      }}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="bg-white dark:bg-[#1a1a1a] rounded-2xl border border-white/10 w-full max-w-lg overflow-hidden"
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between px-4 py-3 border-b border-black/10 dark:border-white/10">
+          <span className="text-sm font-semibold">{label} — Certificates</span>
+          <button
+            onClick={onClose}
+            className="p-1 rounded-lg hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
+          >
+            <HiX className="text-lg" />
+          </button>
+        </div>
+
+        {/* Scrollable certificate list */}
+        <div className="overflow-y-auto max-h-[70vh] flex flex-col gap-4 p-4">
+          {urls.map((url, idx) => (
+            <div key={idx} className="flex flex-col gap-2">
+              <p className="text-xs text-neutral-500 font-semibold uppercase tracking-wider">
+                Certificate {idx + 1}
+              </p>
+              <img
+                src={url}
+                alt={`${label} Certificate ${idx + 1}`}
+                className="w-full rounded-xl border border-black/10 dark:border-white/10"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Data ───────────────────────────────────────────────────────────────────────
 const educationData = [
   {
     degree: "B.E. Computer Science",
@@ -39,6 +93,7 @@ const experienceData = [
     role: "Full Stack Intern",
     company: "Elevance Skills",
     duration: "1 Month • Remote",
+    // Array → triggers modal instead of multiple buttons
     certificateUrl: ["/Elevance.png", "/Elevance Intern.png"],
   },
   {
@@ -55,8 +110,17 @@ const experienceData = [
   },
 ];
 
+// ── Main component ─────────────────────────────────────────────────────────────
 export default function Education() {
   const { isDark } = useTheme();
+  const [modal, setModal] = useState(null); // { urls: [], label: "" }
+
+  const openCert = (exp) => {
+    const urls = Array.isArray(exp.certificateUrl)
+      ? exp.certificateUrl
+      : [exp.certificateUrl];
+    setModal({ urls, label: exp.company });
+  };
 
   return (
     <section
@@ -65,6 +129,15 @@ export default function Education() {
         isDark ? "bg-[#0e0e0e] text-white" : "bg-slate-50 text-slate-900"
       }`}
     >
+      {/* Modal */}
+      {modal && (
+        <CertModal
+          urls={modal.urls}
+          label={modal.label}
+          onClose={() => setModal(null)}
+        />
+      )}
+
       <div className="max-w-6xl w-full">
         <div className="text-center mb-16">
           <h2
@@ -80,6 +153,7 @@ export default function Education() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-10 items-start">
+          {/* Experience */}
           <div className="space-y-6">
             <h3 className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-cyan-500 mb-4">
               <HiBriefcase className="text-lg" /> Experience & Training
@@ -109,37 +183,22 @@ export default function Education() {
                     </p>
                   </div>
 
-                  <div className="flex gap-2">
-                    {Array.isArray(exp.certificateUrl)
-                      ? exp.certificateUrl.map((url, idx) => (
-                          <a
-                            key={idx}
-                            href={url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="p-2 rounded-lg bg-cyan-500 text-black hover:bg-cyan-400 transition-colors flex items-center justify-center cursor-pointer"
-                            title={`View Certificate ${idx + 1}`}
-                          >
-                            <HiOutlineExternalLink />
-                          </a>
-                        ))
-                      : exp.certificateUrl && (
-                          <a
-                            href={exp.certificateUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="p-2 rounded-lg bg-cyan-500 text-black hover:bg-cyan-400 transition-colors flex items-center justify-center cursor-pointer"
-                            title="View Certificate"
-                          >
-                            <HiOutlineExternalLink />
-                          </a>
-                        )}
-                  </div>
+                  {/* Always ONE button per entry */}
+                  {exp.certificateUrl && (
+                    <button
+                      onClick={() => openCert(exp)}
+                      className="p-2 rounded-lg bg-cyan-500 text-black hover:bg-cyan-400 transition-colors flex items-center justify-center cursor-pointer"
+                      title="View Certificate"
+                    >
+                      <HiOutlineExternalLink />
+                    </button>
+                  )}
                 </div>
               ))}
             </div>
           </div>
 
+          {/* Education */}
           <div className="space-y-6">
             <h3 className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-cyan-500 mb-4">
               <HiAcademicCap className="text-lg" /> Academic History
