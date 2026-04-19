@@ -109,19 +109,32 @@ export default function Education() {
                     </p>
                   </div>
 
-                  {exp.certificateUrls &&
-                    exp.certificateUrls.map((url, idx) => (
-                      <a
-                        key={idx}
-                        href={url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-2 rounded-lg bg-cyan-500 text-black hover:bg-cyan-400 transition-colors flex items-center justify-center cursor-pointer"
-                        title={`View Certificate ${idx + 1}`}
-                      >
-                        <HiOutlineExternalLink />
-                      </a>
-                    ))}
+                  <div className="flex gap-2">
+                    {Array.isArray(exp.certificateUrl)
+                      ? exp.certificateUrl.map((url, idx) => (
+                          <a
+                            key={idx}
+                            href={url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-2 rounded-lg bg-cyan-500 text-black hover:bg-cyan-400 transition-colors flex items-center justify-center cursor-pointer"
+                            title={`View Certificate ${idx + 1}`}
+                          >
+                            <HiOutlineExternalLink />
+                          </a>
+                        ))
+                      : exp.certificateUrl && (
+                          <a
+                            href={exp.certificateUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-2 rounded-lg bg-cyan-500 text-black hover:bg-cyan-400 transition-colors flex items-center justify-center cursor-pointer"
+                            title="View Certificate"
+                          >
+                            <HiOutlineExternalLink />
+                          </a>
+                        )}
+                  </div>
                 </div>
               ))}
             </div>
