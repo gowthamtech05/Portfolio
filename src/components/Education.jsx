@@ -7,7 +7,6 @@ import {
   HiX,
 } from "react-icons/hi";
 
-// ── Certificate modal ──────────────────────────────────────────────────────────
 function CertModal({ urls, label, onClose }) {
   if (!urls || urls.length === 0) return null;
   return (
@@ -28,7 +27,6 @@ function CertModal({ urls, label, onClose }) {
         onClick={(e) => e.stopPropagation()}
         className="bg-white dark:bg-[#1a1a1a] rounded-2xl border border-white/10 w-full max-w-lg overflow-hidden"
       >
-        {/* Header */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-black/10 dark:border-white/10">
           <span className="text-sm font-semibold">{label} — Certificates</span>
           <button
@@ -39,7 +37,6 @@ function CertModal({ urls, label, onClose }) {
           </button>
         </div>
 
-        {/* Scrollable certificate list */}
         <div className="overflow-y-auto max-h-[70vh] flex flex-col gap-4 p-4">
           {urls.map((url, idx) => (
             <div key={idx} className="flex flex-col gap-2">
@@ -59,7 +56,6 @@ function CertModal({ urls, label, onClose }) {
   );
 }
 
-// ── Data ───────────────────────────────────────────────────────────────────────
 const educationData = [
   {
     degree: "B.E. Computer Science",
@@ -93,7 +89,6 @@ const experienceData = [
     role: "Full Stack Intern",
     company: "Elevance Skills",
     duration: "1 Month • Remote",
-    // Array → triggers modal instead of multiple buttons
     certificateUrl: ["/Elevance.png", "/Elevance Intern.png"],
   },
   {
@@ -110,11 +105,9 @@ const experienceData = [
   },
 ];
 
-// ── Main component ─────────────────────────────────────────────────────────────
 export default function Education() {
   const { isDark } = useTheme();
-  const [modal, setModal] = useState(null); // { urls: [], label: "" }
-
+  const [modal, setModal] = useState(null);
   const openCert = (exp) => {
     const urls = Array.isArray(exp.certificateUrl)
       ? exp.certificateUrl
@@ -129,7 +122,6 @@ export default function Education() {
         isDark ? "bg-[#0e0e0e] text-white" : "bg-slate-50 text-slate-900"
       }`}
     >
-      {/* Modal */}
       {modal && (
         <CertModal
           urls={modal.urls}
@@ -153,7 +145,6 @@ export default function Education() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-10 items-start">
-          {/* Experience */}
           <div className="space-y-6">
             <h3 className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-cyan-500 mb-4">
               <HiBriefcase className="text-lg" /> Experience & Training
@@ -183,7 +174,6 @@ export default function Education() {
                     </p>
                   </div>
 
-                  {/* Always ONE button per entry */}
                   {exp.certificateUrl && (
                     <button
                       onClick={() => openCert(exp)}
