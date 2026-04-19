@@ -39,7 +39,10 @@ const experienceData = [
     role: "Full Stack Intern",
     company: "Elevance Skills",
     duration: "1 Month • Remote",
-    certificateUrl: "/Elevance.png",
+    certificates: [
+      { name: "Training Certificate", url: "/Elevance.png" },
+      { name: "Intern Excellence", url: "/Elevance Intern.png" },
+    ],
   },
   {
     role: "Web Dev Intern",
